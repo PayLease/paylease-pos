@@ -4,15 +4,6 @@ import React, { useState } from 'react';
 const AUTH_USERNAME = "BDO";
 const AUTH_PASSWORD = "jj&h2juhHauhsujs?hhw";
 
-// Updated UUID generator function
-const generateUUID = () => {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    const r = Math.random() * 16 | 0;
-    const v = c === 'x' ? r : (r & 0x3) | 0x8;
-    return v.toString(16);
-  });
-};
-
 const PayLeaseCheckout = () => {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
@@ -58,8 +49,8 @@ const PayLeaseCheckout = () => {
           customerSocialId: socialId,
           amount: parseFloat(price),
           customerPhoneNumber: phoneNumber,
-          // merchantOrderId: generateUUID(),
-          merchantOrderId: 123,
+          cart: description,
+          merchantOrderId: Math.floor(Date.now()),
         }),
       });
 
@@ -69,7 +60,7 @@ const PayLeaseCheckout = () => {
       setIframeUrl(loanData.result.url);
     } catch (error) {
       console.error('Error:', error);
-      alert('An error occurred. Please try again.');
+      alert('ארעה שגיאה. יש לוודא תקינות הנתונים. יש להזין את כל השדות.');
     } finally {
       setIsLoading(false);
     }
