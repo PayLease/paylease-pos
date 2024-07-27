@@ -1,5 +1,6 @@
 {
   "name": "paylease-pos",
+  "homepage": "https://paylease.github.io/paylease-pos",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
